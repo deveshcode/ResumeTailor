@@ -19,28 +19,7 @@ class ResumeData(BaseModel):
     resume: str
     jobDescription: str
 
-# async def call_gpt(prompt: str) -> str:
-#     print("hello3")
-#     openai_api_key = OPENAI_API_KEY
-#     if not openai_api_key:
-#         raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
 
-#     try:
-#         #print("hello4")
-#         response = openai.ChatCompletion.create(
-#             model="gpt-3.5-turbo",
-#             messages=[
-#                 {"role": "system", "content": "You are a coding and system design expert."},
-#                 {"role": "user", "content": prompt}
-#             ]
-#         )
-        
-#         formatted_response = response['choices'][0]['message']['content'].strip()
-#         print("hello4")
-#         print(formatted_response)
-#         return formatted_response
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"OpenAI API error: {str(e)}")
 async def call_gpt(prompt: str) -> str:
     OPENAI_API_KEY=""
     
@@ -49,17 +28,16 @@ async def call_gpt(prompt: str) -> str:
 
     try:
         client = OpenAI(
-    # This is the default and can be omitted
-    api_key= OPENAI_API_KEY,) 
+            api_key= OPENAI_API_KEY,) 
         chat_completion = client.chat.completions.create(
         messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        model="gpt-3.5-turbo",
-      )
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="gpt-3.5-turbo",
+        )
         response=chat_completion.choices[0].message.content
         print(response)
         return response
